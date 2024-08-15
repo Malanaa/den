@@ -3,21 +3,21 @@ import certifi
 from datetime import date
 import os
 from dotenv import load_dotenv
+from .mongoclient import client
+
+# load_dotenv()
+
+# mongo_connection_string = os.getenv("MONGO_CONNECTION_STRING")
 
 
-load_dotenv()
+# if not mongo_connection_string or not mongo_connection_string.startswith(('mongodb://', 'mongodb+srv://')):
+#     raise ValueError("MONGO_CONNECTION_STRING is not set correctly in the environment.")
 
-mongo_connection_string = os.getenv("MONGO_CONNECTION_STRING")
-
-
-if not mongo_connection_string or not mongo_connection_string.startswith(('mongodb://', 'mongodb+srv://')):
-    raise ValueError("MONGO_CONNECTION_STRING is not set correctly in the environment.")
-
-# MongoDB Client
-client = pymongo.MongoClient(
-    mongo_connection_string,
-    tlsCAFile=certifi.where(),
-)
+# # MongoDB Client
+# client = pymongo.MongoClient(
+#     mongo_connection_string,
+#     tlsCAFile=certifi.where(),
+# )
 
 
 # Creating the Users Collection
