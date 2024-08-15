@@ -5,7 +5,7 @@ click==8.1.7
 dnspython==2.4.2
 Flask==2.3.2
 Flask-Login==0.6.3
-gunicorn==23.0.0
+gunicorn
 itsdangerous==2.2.0
 Jinja2==3.1.4
 marko==2.1.2

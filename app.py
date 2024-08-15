@@ -10,7 +10,7 @@ from gen_utility.markdown_conv import convert_md
 from datetime import date
 import os
 from dotenv import load_dotenv
-
+import dns
 
 load_dotenv()
 

@@ -8,7 +8,9 @@ load_dotenv()
 mongo_connection_string = os.getenv("MONGO_CONNECTION_STRING")
 
 
-if not mongo_connection_string or not mongo_connection_string.startswith(('mongodb://', 'mongodb+srv://')):
+if not mongo_connection_string or not mongo_connection_string.startswith(
+    ("mongodb://", "mongodb+srv://")
+):
     raise ValueError("MONGO_CONNECTION_STRING is not set correctly in the environment.")
 
 # Creating the MongoDB Client
