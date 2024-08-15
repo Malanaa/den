@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="{{url_for('static', filename='images/logo.png')}}" type="image/x-icon">
+    <title>Login/Signup</title>
+    <style>
+      /* Custom colors */
+      .bg-custom-light {
+        background-color: #D9D9D9;
+      }
+      .text-custom-dark {
+        color: #737373;
+      }
+      .text-custom-light {
+        color: #D9D9D9;
+      }
+      .border-custom-dark {
+        border-color: #737373;
+      }
+      .bg-custom-dark {
+        background-color: #737373;
+      }
+    </style>
+</head>
+<body class="bg-custom-light text-custom-dark flex flex-col items-center justify-center min-h-screen">
+
+  <!-- Login/Signup Section -->
+  <section class="bg-white border border-custom-dark rounded-lg p-8 shadow-lg w-full max-w-md mx-4 sm:mx-8 md:mx-16 lg:mx-32">
+    <h2 class="text-2xl font-semibold text-custom-dark mb-6 text-center">Login/Signup</h2>
+    <p class="text-sm text-custom-dark mb-4 text-center">You can create an account right here too! We don't have a separate register page!</p>
+    <form action="{{url_for('auth')}}" method="POST">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-custom-dark mb-2">Email:</label>
+        <input type="email" id="email" name="email" required class="w-full p-3 rounded-lg border border-custom-dark text-custom-dark bg-white focus:outline-none focus:ring-2 focus:ring-custom-dark">
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-custom-dark mb-2">Password:</label>
+        <input type="password" id="password" name="password"  required class="w-full p-3 rounded-lg border border-custom-dark text-custom-dark bg-white focus:outline-none focus:ring-2 focus:ring-custom-dark">
+      </div>
+      <button type="submit" class="w-full py-3 px-4 rounded-lg bg-custom-dark text-white hover:bg-custom-light hover:text-custom-dark focus:outline-none focus:ring-2 focus:ring-custom-light">Login/Signup</button>
+    </form>
+
+    {% if error%}
+    <p>An error has occured</p>
+    {% endif %}
+
+    {% if message %}
+    <p>{{message}}</p>
+    {% endif %}
+    
+
+  </section>
+  <br>Don't feel like it?<a href="{{url_for('home')}}" class="underline text-blue-500">Back Home</a>
+</body>
+</html>
