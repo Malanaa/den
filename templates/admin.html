@@ -1,37 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
         body {
-            font-family: 'Georgia', serif;
-            background-color: #f5f5f5; /* Light gray background */
+            font-family: 'Courier Prime', monospace;
+            background-color: #e7e7e7;
+            color: #333;
+            padding: 20px;
+        }
+
+        .navbar {
+            background-color: #333;
+            border-bottom: 2px solid #666;
+        }
+
+        .navbar a {
+            color: #f5f5f5;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #00bfff;
         }
     </style>
 </head>
-<body>
-    <div class="container mx-auto p-8 bg-white border border-gray-300 shadow-md">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">Admin Dashboard</h1>
-        <h1 class="text-2xl">Add Post</h1>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav class="navbar p-4 flex flex-col md:flex-row items-center justify-between">
+        <div class="text-white text-2xl font-bold">Admin Dashboard</div>
+        <div class="mt-4 md:mt-0">
+            <a href="#add-post" class="text-white hover:text-blue-400">Add Post</a>
+            <a href="#delete-post" class="text-white hover:text-blue-400">Delete Post (ToDo)</a>
+            <a href="#edit-post" class="text-white hover:text-blue-400">Edit Post (ToDo)</a>
+            <a href="{{url_for('home')}}" class="text-white hover:text-blue-400">Home</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg">
+        <h1 id="add-post" class="text-3xl font-bold mb-6">Add Post</h1>
         <form class="bg-gray-50 p-6 rounded border border-gray-300" method="POST">
             <div class="mb-4">
                 <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
-                <input type="text" id="title" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter the title">
+                <input type="text" id="title" name="title"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Enter the title">
             </div>
             <div class="mb-4">
                 <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-                <textarea id="description" name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3" placeholder="Enter the description"></textarea>
+                <textarea id="description" name="description"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    rows="3" placeholder="Enter the description"></textarea>
             </div>
             <div class="mb-4">
                 <label for="body" class="block text-gray-700 text-sm font-bold mb-2">Body</label>
-                <textarea id="body" name="body" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="5" placeholder="Enter the body content in Markdown format"></textarea>
+                <textarea id="body" name="body"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    rows="5" placeholder="Enter the body content in Markdown format"></textarea>
             </div>
             <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Add Post
                 </button>
             </div>
@@ -43,6 +81,16 @@
         <a href="{{ url_for('home') }}" class="underline text-blue-500 hover:text-blue-700">Back Home</a>
     </div>
 
-    
+    <!-- Dummy sections for Delete and Edit -->
+    <div id="delete-post" class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg">
+        <h2 class="text-2xl font-bold">Delete Post (ToDo)</h2>
+        <p class="text-gray-600">This section is under construction.</p>
+    </div>
+
+    <div id="edit-post" class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg">
+        <h2 class="text-2xl font-bold">Edit Post (ToDo)</h2>
+        <p class="text-gray-600">This section is under construction.</p>
+    </div>
 </body>
+
 </html>
