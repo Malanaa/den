@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-mongo_connection_string = os.getenv("MONGO_CONNECTION_STRING")
+mongo_connection_string = os.environ.get("CUSTOMCONNSTR_MONGO_CONNECTION_STRING")
 print(mongo_connection_string)
 
 if not mongo_connection_string or not mongo_connection_string.startswith(
