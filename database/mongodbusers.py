@@ -9,6 +9,10 @@ load_dotenv()
 
 mongo_connection_string = os.getenv("MONGO_CONNECTION_STRING")
 
+
+if not mongo_connection_string:
+    raise ValueError("MONGO_CONNECTION_STRING is not set in the environment.")
+
 # MongoDB Client
 client = pymongo.MongoClient(
     mongo_connection_string,
