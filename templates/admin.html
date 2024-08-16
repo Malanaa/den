@@ -40,12 +40,13 @@
         <div class="mt-4 md:mt-0">
             <a href="#add-post" class="text-white hover:text-blue-400">Add Post</a>
             <a href="#delete-post" class="text-white hover:text-blue-400">Delete Post</a>
-            <!-- <a href="#edit-post" class="text-white hover:text-blue-400">Edit Post (ToDo)</a> -->
+            <a href="#delete-commentx" class="text-white hover:text-blue-400">Delete Comments</a>
             <a href="{{url_for('home')}}" class="text-white hover:text-blue-400">Home</a>
         </div>
     </nav>
 
     <!-- Main Content -->
+    <h2 class="text-2xl text-center mt-8 font-bold mb-4">User Count: {{user_count}}</h2>
     <div class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg">
         <h1 id="add-post" class="text-3xl font-bold mb-6">Add Post</h1>
         <form class="bg-gray-50 p-6 rounded border border-gray-300" method="POST">

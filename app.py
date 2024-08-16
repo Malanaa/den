@@ -37,6 +37,7 @@ def admin():
         if session["user"] == "syedabimam@gmail.com":
             post_list = posts.find()
             comment_list = comments.find()
+            user_count = users.count_documents({})
 
             if request.method == "POST":
                 title = request.form["title"]
@@ -54,9 +55,9 @@ def admin():
                 posts.insert_one(post)
 
                 return redirect(url_for("admin", message="Succesfuly Posted"))
-            return render_template("admin.html", posts=post_list, comments=comment_list)
+            return render_template("admin.html", posts=post_list, comments=comment_list, user_count=user_count)
 
-            return render_template("admin.html")
+            # return render_template("admin.html")
         return redirect(url_for("home"))
     except KeyError:
         return redirect(url_for("home"))
