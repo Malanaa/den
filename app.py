@@ -4,6 +4,7 @@ import bcrypt
 import pymongo.errors
 from database.mongodbusers import users
 from database.mongodbposts import posts
+from database.mongocomments import comments
 import pymongo
 from gen_utility.email_auth import verify_email
 from gen_utility.markdown_conv import convert_md
@@ -22,6 +23,7 @@ secret_key = os.getenv("SECRET_KEY")
 # Init flask app
 app = Flask(__name__)
 app.secret_key = secret_key
+
 
 @app.route("/logout")
 def logout():
@@ -59,17 +61,59 @@ def admin():
         return redirect(url_for("home"))
 
 
+@app.route("/comment", methods=["POST", "GET"])
+def comment():
+    title = request.args.get("title")
+    user = request.args.get("user")
+    user = user.split('@')[0]
+
+    if request.method == "POST":
+        comment = request.form["comment"]
+        blog = posts.find_one({"title": f"{title}"})
+        blog_id = blog.get("_id")
+
+        comment = {
+            "user": user,
+            "blog": blog_id,
+            "comment": comment,
+            "time": str(date.today()),
+        }
+
+        comments.insert_one(comment)
+
+        return redirect(url_for("blogpost", title=title))
+
+    return redirect(url_for("blogpost", title=title))
+
+
 @app.route("/<title>")
 def blogpost(title):
     try:
         if session["logged_in"] == True:
             user = session["user"]
             post_current = posts.find_one({"title": f"{title}"})
+
+            comment_list = comments.find({"blog": post_current.get("_id")}).sort(
+                "_id", -1
+            )
+
             if post_current:
                 description = post_current.get("description")
                 time = post_current.get("time")
                 body = post_current.get("body")
                 body = convert_md(body)
+
+                if comment_list:
+                    return render_template(
+                        "blogpost.html",
+                        title=title,
+                        description=description,
+                        time=time,
+                        body=body,
+                        user=user,
+                        comments=comment_list,
+                    )
+
                 return render_template(
                     "blogpost.html",
                     title=title,
@@ -81,11 +125,25 @@ def blogpost(title):
         return render_template("blogpost.html")
     except KeyError:
         post_current = posts.find_one({"title": f"{title}"})
+        comment_list = comments.find({"blog": post_current.get("_id")}).sort(
+                "_id", -1
+            )
         if post_current:
             description = post_current.get("description")
             time = post_current.get("time")
             body = post_current.get("body")
             body = convert_md(body)
+
+            if comment_list:
+                return render_template(
+                    "blogpost.html",
+                    title=title,
+                    description=description,
+                    time=time,
+                    body=body,
+                    comments=comment_list,
+                )
+
             return render_template(
                 "blogpost.html",
                 title=title,
@@ -117,7 +175,7 @@ def search():
 @app.route("/", methods=["POST", "GET"])
 @app.route("/home", methods=["POST", "GET"])
 def home():
-    posts_list = posts.find()
+    posts_list = posts.find().sort("_id", -1)
 
     try:
         if session["logged_in"] == True:
@@ -135,7 +193,6 @@ def home():
         return render_template("home.html", posts=posts_list)
     except KeyError:
         return render_template("home.html", posts=posts_list)
-
 
 
 @app.route("/auth", methods=["POST", "GET"])
@@ -184,10 +241,14 @@ def auth():
             return render_template("auth.html", error=True)
     return render_template("auth.html")
 
-@app.route('/XPIysYkz9L')
+
+@app.route("/XPIysYkz9L")
 def delete():
-    post_id = request.args.get('post_id')
-    deleted_result = posts.delete_one({'_id': ObjectId(post_id)})
-    return redirect(url_for('admin'))
+    post_id = request.args.get("post_id")
+    deleted_comment = comments.delete_many({"blog": ObjectId(post_id)})
+    deleted_result = posts.delete_one({"_id": ObjectId(post_id)})
+    return redirect(url_for("admin"))
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
