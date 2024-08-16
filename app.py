@@ -29,6 +29,22 @@ def blogpost(title):
         if session["logged_in"] == True:
             user = session["user"]
             post_current = posts.find_one({"title": f"{title}"})
+            if post_current:
+                description = post_current.get("description")
+                time = post_current.get("time")
+                body = post_current.get("body")
+                body = convert_md(body)
+                return render_template(
+                    "blogpost.html",
+                    title=title,
+                    description=description,
+                    time=time,
+                    body=body,
+                    user=user,
+                )
+    except KeyError:
+        post_current = posts.find_one({"title": f"{title}"})
+        if post_current:
             description = post_current.get("description")
             time = post_current.get("time")
             body = post_current.get("body")
@@ -39,17 +55,7 @@ def blogpost(title):
                 description=description,
                 time=time,
                 body=body,
-                user=user,
             )
-    except KeyError:
-        post_current = posts.find_one({"title": f"{title}"})
-        description = post_current.get("description")
-        time = post_current.get("time")
-        body = post_current.get("body")
-        body = convert_md(body)
-        return render_template(
-            "blogpost.html", title=title, description=description, time=time, body=body
-        )
 
 
 @app.route("/blog")
@@ -172,6 +178,7 @@ def auth():
         else:
             return render_template("auth.html", error=True)
     return render_template("auth.html")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
