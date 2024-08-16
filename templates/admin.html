@@ -82,8 +82,8 @@
     </div>
 
     <!-- Dummy sections for Delete and Edit -->
+    <h2 class="text-2xl text-center mt-8 font-bold mb-4">Delete Posts</h2>
     <div id="delete-post" class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg overflow-auto max-h-80">
-        <h2 class="text-2xl font-bold mb-4">Delete Post</h2>
         <div class="space-y-4">
             {% for post in posts %}
             <div class="bg-gray-100 p-4 border border-gray-300 rounded-lg flex justify-between items-center">
@@ -93,6 +93,16 @@
             {% endfor %}
         </div>
     </div>
+    <h2 class="text-2xl text-center mt-8 font-bold mb-4">Delete Comments</h2>
+    <div id="delete-comments" class="container mx-auto p-8 bg-white border border-gray-400 shadow-lg mt-8 max-w-screen-lg overflow-auto max-h-80">
+        <div class="space-y-4">
+            {% for comment in comments %}
+            <div class="bg-gray-100 p-4 border border-gray-300 rounded-lg flex justify-between items-center">
+                <p class="text-gray-800">{{ comment["comment"] }}</p>
+                <a href="{{url_for('delete_comment', comment_id=comment.get('_id'))}}" class="text-red-600 hover:text-red-800 font-bold">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
 </body>
 
 </html>

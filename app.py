@@ -36,6 +36,7 @@ def admin():
     try:
         if session["user"] == "syedabimam@gmail.com":
             post_list = posts.find()
+            comment_list = comments.find()
 
             if request.method == "POST":
                 title = request.form["title"]
@@ -53,7 +54,7 @@ def admin():
                 posts.insert_one(post)
 
                 return redirect(url_for("admin", message="Succesfuly Posted"))
-            return render_template("admin.html", posts=post_list)
+            return render_template("admin.html", posts=post_list, comments=comment_list)
 
             return render_template("admin.html")
         return redirect(url_for("home"))
@@ -65,7 +66,7 @@ def admin():
 def comment():
     title = request.args.get("title")
     user = request.args.get("user")
-    user = user.split('@')[0]
+    user = user.split("@")[0]
 
     if request.method == "POST":
         comment = request.form["comment"]
@@ -93,15 +94,15 @@ def blogpost(title):
             user = session["user"]
             post_current = posts.find_one({"title": f"{title}"})
 
-            comment_list = comments.find({"blog": post_current.get("_id")}).sort(
-                "_id", -1
-            )
-
             if post_current:
                 description = post_current.get("description")
                 time = post_current.get("time")
                 body = post_current.get("body")
                 body = convert_md(body)
+
+                comment_list = comments.find({"blog": post_current.get("_id")}).sort(
+                    "_id", -1
+                )
 
                 if comment_list:
                     return render_template(
@@ -125,14 +126,15 @@ def blogpost(title):
         return render_template("blogpost.html")
     except KeyError:
         post_current = posts.find_one({"title": f"{title}"})
-        comment_list = comments.find({"blog": post_current.get("_id")}).sort(
-                "_id", -1
-            )
         if post_current:
             description = post_current.get("description")
             time = post_current.get("time")
             body = post_current.get("body")
             body = convert_md(body)
+
+            comment_list = comments.find({"blog": post_current.get("_id")}).sort(
+                "_id", -1
+            )
 
             if comment_list:
                 return render_template(
@@ -247,6 +249,13 @@ def delete():
     post_id = request.args.get("post_id")
     deleted_comment = comments.delete_many({"blog": ObjectId(post_id)})
     deleted_result = posts.delete_one({"_id": ObjectId(post_id)})
+    return redirect(url_for("admin"))
+
+
+@app.route("/XPIysYkAAssQ!z9L")
+def delete_comment():
+    comment_id = request.args.get("comment_id")
+    deleted_comment = comments.delete_many({"_id": ObjectId(comment_id)})
     return redirect(url_for("admin"))
 
 

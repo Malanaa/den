@@ -195,10 +195,10 @@
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
             <div class="title">Den</div>
         </a>
-        <nav>
+        <nav class="hover:appearance-none">
             <a href="{{url_for('home')}}">Home</a>
             {% if user %}
-            <a href="#">{{user}}</a>
+            <a>{{user}}</a>
             <a href="{{url_for('logout')}}">Logout</a>
             {% else %}
             <a href="{{url_for('auth')}}">Login/Register</a>
@@ -222,7 +222,7 @@
         {% if user %}
         <form action="{{url_for('comment', title=title, user=user)}}" method="POST" style="display: flex; flex-direction: column; gap: 10px; padding: 20px; background-color: #f0f0f0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
             <label for="comment" style="font-weight: bold;">Leave a Comment:</label>
-            <textarea name="comment" id="comment" rows="5" style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; resize: vertical;" placeholder="Type your comment here..."></textarea>
+            <textarea name="comment" id="comment" rows="5" style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; resize: vertical;" placeholder="What do you have to say..."></textarea>
             <button type="submit" style="align-self: flex-end; padding: 10px 20px; background-color: #333; color: #f0f0f0; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Submit</button>
         </form>
         {% else %}
