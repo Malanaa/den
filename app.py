@@ -11,6 +11,7 @@ from datetime import date
 import os
 from dotenv import load_dotenv
 import dns
+from bson.objectid import ObjectId
 
 load_dotenv()
 
@@ -21,6 +22,41 @@ secret_key = os.getenv("SECRET_KEY")
 # Init flask app
 app = Flask(__name__)
 app.secret_key = secret_key
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
+
+
+@app.route("/admin", methods=["POST", "GET"])
+def admin():
+    try:
+        if session["user"] == "syedabimam@gmail.com":
+            post_list = posts.find()
+
+            if request.method == "POST":
+                title = request.form["title"]
+                description = request.form["description"]
+                body = request.form["body"]
+
+                post = {
+                    "title": title,
+                    "description": description,
+                    "author": "Malanaa",
+                    "time": str(date.today()),
+                    "body": body,
+                }
+
+                posts.insert_one(post)
+
+                return redirect(url_for("admin", message="Succesfuly Posted"))
+            return render_template("admin.html", posts=post_list)
+
+            return render_template("admin.html")
+        return redirect(url_for("home"))
+    except KeyError:
+        return redirect(url_for("home"))
 
 
 @app.route("/<title>")
@@ -42,6 +78,7 @@ def blogpost(title):
                     body=body,
                     user=user,
                 )
+        return render_template("blogpost.html")
     except KeyError:
         post_current = posts.find_one({"title": f"{title}"})
         if post_current:
@@ -100,38 +137,6 @@ def home():
         return render_template("home.html", posts=posts_list)
 
 
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("home"))
-
-
-@app.route("/admin", methods=["POST", "GET"])
-def admin():
-    try:
-        if session["user"] == "syedabimam@gmail.com":
-            if request.method == "POST":
-                title = request.form["title"]
-                description = request.form["description"]
-                body = request.form["body"]
-
-                post = {
-                    "title": title,
-                    "description": description,
-                    "author": "Malanaa",
-                    "time": str(date.today()),
-                    "body": body,
-                }
-
-                posts.insert_one(post)
-
-                return render_template("admin.html", message="Succesfuly Posted")
-
-            return render_template("admin.html")
-        return redirect(url_for("home"))
-    except KeyError:
-        return redirect(url_for("home"))
-
 
 @app.route("/auth", methods=["POST", "GET"])
 def auth():
@@ -179,6 +184,10 @@ def auth():
             return render_template("auth.html", error=True)
     return render_template("auth.html")
 
-
+@app.route('/XPIysYkz9L')
+def delete():
+    post_id = request.args.get('post_id')
+    deleted_result = posts.delete_one({'_id': ObjectId(post_id)})
+    return redirect(url_for('admin'))
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
