@@ -90,10 +90,11 @@ def comment():
 
 @app.route("/<title>")
 def blogpost(title):
+    title_real = title.replace('-', ' ')
     try:
         if session["logged_in"] == True:
             user = session["user"]
-            post_current = posts.find_one({"title": f"{title}"})
+            post_current = posts.find_one({"title": f"{title_real}"})
 
             if post_current:
                 description = post_current.get("description")
@@ -108,21 +109,21 @@ def blogpost(title):
                 if comment_list:
                     return render_template(
                         "blogpost.html",
-                        title=title,
+                        title=title_real,
                         description=description,
                         time=time,
                         body=body,
                         user=user,
-                        comments=comment_list,
+                        comments=comment_list
                     )
 
                 return render_template(
                     "blogpost.html",
-                    title=title,
+                    title=title_real,
                     description=description,
                     time=time,
                     body=body,
-                    user=user,
+                    user=user
                 )
         return render_template("blogpost.html")
     except KeyError:
@@ -159,7 +160,8 @@ def blogpost(title):
 @app.route("/blog")
 def blog():
     title = request.args.get("title")
-    return redirect(url_for("blogpost", title=title))
+    title_url = title.replace(' ', '-')
+    return redirect(url_for("blogpost", title=title_url))
 
 
 @app.route("/search", methods=["POST", "GET"])
