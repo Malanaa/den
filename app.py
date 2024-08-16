@@ -55,7 +55,12 @@ def admin():
                 posts.insert_one(post)
 
                 return redirect(url_for("admin", message="Succesfuly Posted"))
-            return render_template("admin.html", posts=post_list, comments=comment_list, user_count=user_count)
+            return render_template(
+                "admin.html",
+                posts=post_list,
+                comments=comment_list,
+                user_count=user_count,
+            )
 
             # return render_template("admin.html")
         return redirect(url_for("home"))
@@ -90,7 +95,7 @@ def comment():
 
 @app.route("/<title>")
 def blogpost(title):
-    title_real = title.replace('-', ' ')
+    title_real = title.replace("-", " ")
     try:
         if session["logged_in"] == True:
             user = session["user"]
@@ -114,7 +119,7 @@ def blogpost(title):
                         time=time,
                         body=body,
                         user=user,
-                        comments=comment_list
+                        comments=comment_list,
                     )
 
                 return render_template(
@@ -123,7 +128,7 @@ def blogpost(title):
                     description=description,
                     time=time,
                     body=body,
-                    user=user
+                    user=user,
                 )
         return render_template("blogpost.html")
     except KeyError:
@@ -160,7 +165,7 @@ def blogpost(title):
 @app.route("/blog")
 def blog():
     title = request.args.get("title")
-    title_url = title.replace(' ', '-')
+    title_url = title.replace(" ", "-")
     return redirect(url_for("blogpost", title=title_url))
 
 
