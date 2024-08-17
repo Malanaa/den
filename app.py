@@ -132,7 +132,7 @@ def blogpost(title):
                 )
         return render_template("blogpost.html")
     except KeyError:
-        post_current = posts.find_one({"title": f"{title}"})
+        post_current = posts.find_one({"title": f"{title_real}"})
         if post_current:
             description = post_current.get("description")
             time = post_current.get("time")
@@ -146,7 +146,7 @@ def blogpost(title):
             if comment_list:
                 return render_template(
                     "blogpost.html",
-                    title=title,
+                    title=title_real,
                     description=description,
                     time=time,
                     body=body,
@@ -155,11 +155,12 @@ def blogpost(title):
 
             return render_template(
                 "blogpost.html",
-                title=title,
+                title=title_real,
                 description=description,
                 time=time,
                 body=body,
             )
+        return render_template("blogpost.html")
 
 
 @app.route("/blog")
