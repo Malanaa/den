@@ -267,6 +267,9 @@ def delete_comment():
     deleted_comment = comments.delete_many({"_id": ObjectId(comment_id)})
     return redirect(url_for("admin"))
 
+@app.route("/sitemap.xml")
+def sitemap():
+    return render_template('sitemap.xml')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)

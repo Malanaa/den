@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://blog.syedimam.work/</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/home</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/auth</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/MongoDB-Connection-String-%7C-Microsoft-Azure</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/Into-the-Web:-My-Start-and-the-Scary-Parts</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/The-Moral-Quandary:-A-Journey-Through-Subjectivity</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/A-Fumbled-Tale</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/Quod-Erat-Demonstrandum,</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://blog.syedimam.work/Axioms-Aren%E2%80%99t-Necessarily-%E2%80%9CRight%E2%80%9D</loc>
+  <lastmod>2024-08-18T05:58:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
